@@ -1,0 +1,5 @@
+﻿{
+  "DataSağlayıcı": "sqlserver",
+  "DataConnectionString": "Data Source=DESKTOP-3D3ME01;Initial Catalog=RotaIznik;Integrated Security=True;Persist Security Info=False",
+  "RawDataSettings": {}
+}

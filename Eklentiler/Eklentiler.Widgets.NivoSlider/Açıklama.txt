@@ -1,0 +1,9 @@
+﻿Grup: Widgets
+KısaAd: Nivo Slider
+SistemAdı: Widgets.NivoSlider
+Sürüm: 1.100
+DesteklenenSürümler: 1.00
+Yazar: Emrah Şahin
+GörüntülemeSırası: 1
+EklentiDosyaAdı: Eklentiler.Widgets.NivoSlider.dll
+Açıklama: This plugin allows you to change the contents of main page slider

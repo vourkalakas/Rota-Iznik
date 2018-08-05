@@ -1,0 +1,21 @@
+﻿@model AdminHeaderLinksModel
+@if (Model.KullanıcıKimliğeBüründü || Model.AdminLinkGörüntüle)
+{
+    <div class="admin-header-links">
+        @if (Model.KullanıcıKimliğeBüründü)
+        {
+            <div class="impersonate">
+                <span>@string.Format(T("Account.ImpersonatedAs").Text, Model.KimliğeBürünmüşKulllanıcıAdı)</span>
+                <a href="@Url.RouteUrl("Logout")" class="finish-impersonation" title="@T("Account.ImpersonatedAs.Finish.Hint")">@T("Account.ImpersonatedAs.Finish")</a>
+            </div>
+        }
+        @if (Model.AdminLinkGörüntüle)
+        {
+            <a href="@Url.Content("~/Admin")" class="administration">@T("Account.Administration")</a>
+        }
+        @if (!string.IsNullOrEmpty(Model.SayfayıDüzenle))
+        {
+            <a href="@Model.SayfayıDüzenle" class="manage-page">@T("Common.ManagePage")</a>
+        }
+    </div>
+}

@@ -1,0 +1,77 @@
+﻿@using System.Text.Encodings.Web
+@{
+    //success messages
+    var successMessages = new List<string>();
+    if (TempData[$"notifications.{BildirimTipi.Başarılı}"] != null)
+    {
+        successMessages.AddRange(TempData[$"notifications.{BildirimTipi.Başarılı}"] as IList<string>);
+    }
+    if (ViewData[$"notifications.{BildirimTipi.Başarılı}"] != null)
+    {
+        successMessages.AddRange(ViewData[$"notifications.{BildirimTipi.Başarılı}"] as IList<string>);
+    }
+
+
+    //error messages
+    var errorMessages = new List<string>();
+    if (TempData[$"notifications.{BildirimTipi.Hata}"] != null)
+    {
+        errorMessages.AddRange(TempData[$"notifications.{BildirimTipi.Hata}"] as IList<string>);
+    }
+    if (ViewData[$"notifications.{BildirimTipi.Hata}"] != null)
+    {
+        errorMessages.AddRange(ViewData[$"notifications.{BildirimTipi.Hata}"] as IList<string>);
+    }
+
+
+    //warning messages
+    var warningMessages = new List<string>();
+    if (TempData[$"notifications.{BildirimTipi.Uyarı}"] != null)
+    {
+        warningMessages.AddRange(TempData[$"notifications.{BildirimTipi.Uyarı}"] as IList<string>);
+    }
+    if (ViewData[$"notifications.{BildirimTipi.Uyarı}"] != null)
+    {
+        warningMessages.AddRange(ViewData[$"notifications.{BildirimTipi.Uyarı}"] as IList<string>);
+    }
+}
+@if (successMessages.Count > 0)
+{
+    <script type="text/javascript" asp-location="Footer">
+        $(document).ready(function () {
+            var msg = [ @Html.Raw("'" + string.Join("', '", successMessages.Select(x => JavaScriptEncoder.Default.Encode(x)).ToList()) + "'")];
+            displayPopupNotification(msg, 'success', false);
+        });
+    </script>
+}
+@if (errorMessages.Count > 0)
+{
+    <script type="text/javascript" asp-location="Footer">
+        $(document).ready(function () {
+            var msg = [ @Html.Raw("'" + string.Join("', '", errorMessages.Select(x => JavaScriptEncoder.Default.Encode(x)).ToList()) + "'")];
+            displayPopupNotification(msg, 'error', false);
+        });
+    </script>
+}
+@if (warningMessages.Count > 0)
+{
+    <script type="text/javascript" asp-location="Footer">
+        $(document).ready(function () {
+            var msg = [ @Html.Raw("'" + string.Join("', '", warningMessages.Select(x => JavaScriptEncoder.Default.Encode(x)).ToList()) + "'")];
+            displayPopupNotification(msg, 'warning', false);
+        });
+    </script>
+}
+
+<div class="ajax-loading-block-window" style="display: none">
+</div>
+<div id="dialog-notifications-success" title="@T("Common.Notification")" style="display:none;">
+</div>
+<div id="dialog-notifications-error" title="@T("Common.Error")" style="display:none;">
+</div>
+<div id="dialog-notifications-warning" title="@T("Common.Warning")" style="display:none;">
+</div>
+<div id="bar-notification" class="bar-notification">
+    <span class="close" title="@T("Common.Close")">&nbsp;</span>
+</div>
+@await Component.InvokeAsync("Widget", new { widgetZone = "notifications" })
